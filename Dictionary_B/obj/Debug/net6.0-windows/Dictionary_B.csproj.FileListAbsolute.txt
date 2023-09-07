@@ -1,0 +1,38 @@
+C:\Visual Studio\CUOI_KY\Dictionary_B\bin\Debug\net6.0-windows\Dictionary_B.exe
+C:\Visual Studio\CUOI_KY\Dictionary_B\bin\Debug\net6.0-windows\Dictionary_B.deps.json
+C:\Visual Studio\CUOI_KY\Dictionary_B\bin\Debug\net6.0-windows\Dictionary_B.runtimeconfig.json
+C:\Visual Studio\CUOI_KY\Dictionary_B\bin\Debug\net6.0-windows\Dictionary_B.dll
+C:\Visual Studio\CUOI_KY\Dictionary_B\bin\Debug\net6.0-windows\Dictionary_B.pdb
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.csproj.AssemblyReference.cache
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.Form1.resources
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.csproj.GenerateResource.cache
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.GeneratedMSBuildEditorConfig.editorconfig
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.AssemblyInfoInputs.cache
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.AssemblyInfo.cs
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.csproj.CoreCompileInputs.cache
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.dll
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\refint\Dictionary_B.dll
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.pdb
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.genruntimeconfig.cache
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\ref\Dictionary_B.dll
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.FormAddWord.resources
+C:\Visual Studio\CUOI_KY\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.Properties.Resources.resources
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\bin\Debug\net6.0-windows\Dictionary_B.exe
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\bin\Debug\net6.0-windows\Dictionary_B.deps.json
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\bin\Debug\net6.0-windows\Dictionary_B.runtimeconfig.json
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\bin\Debug\net6.0-windows\Dictionary_B.dll
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\bin\Debug\net6.0-windows\Dictionary_B.pdb
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.csproj.AssemblyReference.cache
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.Form1.resources
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.FormAddWord.resources
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.Properties.Resources.resources
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.csproj.GenerateResource.cache
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.GeneratedMSBuildEditorConfig.editorconfig
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.AssemblyInfoInputs.cache
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.AssemblyInfo.cs
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.csproj.CoreCompileInputs.cache
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.dll
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\refint\Dictionary_B.dll
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.pdb
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\Dictionary_B.genruntimeconfig.cache
+C:\PHONG\CTDL_GT\TranHaoPhong_cuoiky_gtctdl\Dictionary_B\obj\Debug\net6.0-windows\ref\Dictionary_B.dll

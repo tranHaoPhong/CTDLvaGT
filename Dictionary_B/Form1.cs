@@ -1,0 +1,484 @@
+﻿using Microsoft.VisualBasic;
+
+namespace Dictionary_B
+{
+    public partial class Form1 : Form
+    {
+        //--------------------------------------------Thiết kế cấu trúc từ điển-------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------
+        //ĐÂY LÀ CLASS NÚT TỪ; CLASS NÀY CHO TA BIẾT CÁC THUỘC TÍNH CỦA MỘT NÚT TỪ VÀ KHỞI TẠO MỘT NÚT TỪ TỪ DỮ LIỆU TA CÓ
+        public class WordNode
+        {
+            //Các thuộc tính class quản lí bao gồm các string tên Từ, Kiểu từ, Mô tả và Ví dụ
+            public string Word;
+            public string TypeWord;
+            public string Description;
+            public string Example;
+            //Mỗi nút từ sẽ có thêm 2 thuộc tính giúp nó xác định nó trỏ trước tới nút nào và trỏ sau tới nút nào
+            public WordNode pre;
+            public WordNode next;
+            //Phương thức khởi tạo cho phép ta gán giá trị cho các thuộc tính kiểu string của một nút từ mới
+            public WordNode(string a1, string a2, string a3, string a4)
+            {
+                Word = a1;
+                TypeWord = a2;
+                Description = a3;
+                Example = a4;
+                //Mặc định nút mới sẽ trỏ trước và trỏ sau tới null
+                pre = null;
+                next = null;
+            }
+        }
+        //------------------------------------------------------------------------------------------------------------------------------------
+        //ĐÂY LÀ CLASS DANH SÁCH NÚT TỪ; CLASS NÀY CUNG CẤP CÁC PHƯƠNG THỨC THÊM, XÓA, TÌM KIẾM MỘT NÚT TỪ TRÊN DANH SÁCH NÚT TỪ TƯƠNG ỨNG
+        public class ListWordNode
+        {
+            //Các thuộc tính class này quản lí bao gồm một nút từ đầu, một nút từ cuối và một biến size ghi số lượng nút từ hiện tại của danh sách nút từ
+            public WordNode head;
+            public WordNode tail;
+            public int size;
+            //Phuowng thức khởi tạo chỉ định nút từ đầu, nút từ cuối là null và biến size bằng 0
+            public ListWordNode()
+            {
+                head = null;
+                tail = null;
+                size = 0;
+            }
+            //Phương thức kiểm tra danh sách nút từ có rỗng hay không; giá trị trả về một giá trị logic
+            public bool IsEmpty()
+            {
+                return size == 0;
+            }
+            //Phương thức đếm số lượng nút từ trong danh sách nút từ
+            public int Count()
+            {
+                return size;
+            }
+            //Phương thức tìm kiếm một nút từ với đối số truyền vào là một string; giá trị trả về là nút từ cần tìm
+            public WordNode Search(string userTyping)
+            {
+                //Tạo một string là chuỗi kí tự thường ứng với string truyền vào
+                string userTypingLower = userTyping.ToLower();
+                //tạo một biến logic xác định có tìm thấy nút từ cần tìm hay không; mặc định gán cho biến này là false
+                bool IsFind = false;
+                //Gán nút find với nút đầu để bắt đầu tìm kiếm
+                WordNode find = head;
+                if (IsEmpty() == false)
+                {
+                    //Tìm kiếm chỉ thực hiện nếu danh sách không rỗng
+                    while (find != null)
+                    {
+                        //Kiểm tra nút find hiện tại có thỏa yêu cầu cần tìm không
+                        //nếu có chuyển biến logic thành true, thoát và trả về nút này
+                        if (find.Word == userTypingLower)
+                        {
+                            IsFind = true;
+                            break;
+                        }
+                        else
+                            //nếu không tiếp tục chuyển find thành nút từ kế tiếp
+                            find = find.next;
+                    }
+                }
+                //find sẽ là null nếu Tìm kiếm không thành công hoặc không có nút từ thỏa yêu cầu
+                if (IsFind == false)
+                    find = null;
+                //Nút find cũng là giá trị trả về của phương thức này
+                return find;
+            }
+            //Phương thức thêm một nút từ user chỉ định vào danh sách nút từ; nếu nút từ user đã tồn tại, cập nhật lại thuộc tính của nút từ đó
+            public void AddWordNode(WordNode user)
+            {
+                if (IsEmpty() == true)//Nếu danh sách rỗng thì nút từ user sẽ nút đầu, nút cuối của danh sách nút từ
+                {
+                    head = user;
+                    tail = user;
+                    size++;//size tăng do thêm 1 nút từ
+                }
+                else
+                {//nếu không rỗng ta thực hiện tìm vị trí cho nút từ user; có thể là chỉnh sửa lại nút từ nếu nút user đã tồn tại
+                    WordNode temp = head;//Chọn nút temp bắt đầu tại head
+                    bool isAddEdit = false;//biến này giúp cho biết đã thêm/sửa nút từ user chưa
+                    while (temp != null)
+                    {//ta kiểm tra tuần tự từ trên xuống bởi vòng lặp theo nút temp
+                        if (temp.Word == user.Word)
+                        {//nếu nút từ user giống nút temp tức nút từ user đã tồn tại, ta chỉ việc chỉnh sửa lại nút từ đó
+                            temp.TypeWord = user.TypeWord;
+                            temp.Description = user.Description;
+                            temp.Example = user.Example;
+                            isAddEdit = true;//biến này đặt về true để biểu thị đã thêm/sửa nút từ
+                            break;//thoát khỏi vòng lặp vì đã thêm/sửa nút từ rồi
+                        }
+                        else
+                        {//nút từ user không giống temp
+                            if (IsBefore(user.Word, temp.Word) == true)
+                            {//Nếu nút từ user đứng trước nút từ temp về mặt chữ cái từ vựng, ta sẽ chèn nút từ user lên ngay trước nút temp
+                                if (temp == head)
+                                {//nếu temp là nút head của danh sách, ta chỉ việc cập nhật con trỏ tại nút từ head và nút từ user; chỉ định user là nút đầu
+                                    user.next = head;
+                                    head.pre = user;
+                                    head = user;
+                                }
+                                else
+                                {//nếu temp không phải nút đầu, ta thực hiện cập nhật con trở tại nút từ temp.pre, nút từ user và nút từ temp
+                                    temp.pre.next = user;
+                                    user.pre = temp.pre;
+                                    user.next = temp;
+                                    temp.pre = user;
+                                }
+                                isAddEdit = true;//biến này đặt về true để biểu thị đã thêm/sửa nút từ
+                                size++;//size tăng do thêm 1 nút từ
+                                break;//thoát khỏi vòng lặp vì đã thêm/sửa nút từ rồi
+                            }
+                            temp = temp.next;//nếu chưa thêm/sửa được nút từ user, ta trỏ temp đến nút từ kế tiếp
+                        }
+                    }
+                    if (isAddEdit == false)
+                    {//Trong trường hợp biến logic này chưa về true tức nút từ user là nút mới và đứng sau mọi nút của danh sách
+                        //ta thực hiện cập nhật con trỏ tại nút từ tail và nút từ user,chỉ định nút từ user là nút cuối
+                        tail.next = user;
+                        user.pre = tail;
+                        tail = user;
+                        size++;//size tăng do thêm 1 nút từ
+                    }
+                }
+            }
+            //Phương thức xóa một nút từ tring danh sách nút từ với đối số truyền vào là 1 string mang dữ liệu của nút cần xóa
+            public void DeleteWordNode(string userTyping)
+            {
+                //Tạo một nút từ tạm từ kết quả trả về phương thức Search() ứng với nút từ mà chuỗi string truyền vào xác định
+                WordNode temp = Search(userTyping.ToLower());
+                if (temp != null)
+                {
+                    //Việc xóa nút từ chỉ thực hiện nếu có nút từ ứng với chuỗi string truyền vào (tức nút từ tạm phía trên phải khác null)
+                    if (temp == head)
+                    {
+                        //nếu temp là nút đầu, dời nút head về nút nút kế tiếp, đặt trỏ trước của head về null
+                        head = head.next;
+                        head.pre = null;
+                    }
+                    else
+                    {
+                        if (temp == tail)
+                        {
+                            //nếu temp là nút cuối, dời nút tail về nút trước, đặt trỏ sau của tail về null
+                            tail = tail.pre;
+                            tail.next = null;
+                        }
+                        else
+                        {
+                            //nếu temp không phải nút đàu hay nút cuối
+                            //Xóa các liên kết của nút trước temp, nút sau temp với nút temp hiện tại và tạo liên kết nút trước temp với nút sau temp
+                            temp.pre.next = temp.next;
+                            temp.next.pre = temp.pre;
+                        }
+                    }
+                    //Vì xóa một nút từ vào danh sách nút từ nên giảm biến size đi 1 đơn vị
+                    size--;
+                }
+            }
+            //Phương thức tìm kiếm các nút từ có dữ liệu trùng tiền tố với chuỗi string truyền vào; giá trị trả về dưới dạng một danh sách nút từ
+            //đồng thời ghi dữ liệu của danh sách nút từ tìm được lên listbox chỉ định
+            public ListWordNode SearchAdvance(string userTyping, ListBox lstWord)
+            {
+                //Tạo một string là chuỗi kí tự thường ứng với string truyền vào
+                string userTypingLower = userTyping.ToLower();
+                //Khởi tạo một danh sách nút từ KQ rỗng và gán một WordNode ứng với nút đầu của danh sách nút từ thực hiện tìm
+                ListWordNode listKQ = new ListWordNode();
+                WordNode temp = head;
+                //Làm trống listbox được truyền vào
+                lstWord.Items.Clear();
+
+                if (IsEmpty() == false)
+                {
+                    //Tìm kiếm chỉ thực hiện khi danh sách nút từ tìm khác rỗng
+                    while (temp != null)
+                    {
+                        //Sử dụng phương thức IndexOf() để xác định temp.word với userTypingLower trùng tiền tố không
+                        if (TestSubString(userTypingLower, temp.Word) == true)
+                        {
+                            //nếu có thêm nút từ tìm được vào listKQ và ghi dữ liệu nút tìm được lên listbox chỉ định
+                            listKQ.AddWordNode(temp);
+                            lstWord.Items.Add(temp.Word);
+                        }
+                        //Chuyển temp sang nút kế tiếp
+                        temp = temp.next;
+                    }
+                }
+                //giá trị trả về là listKQ
+                return listKQ;
+            }
+        }
+        //----------------------------------------------------------------------------------------------------------------------------------
+        //ĐÂY LÀ CLASS TỪ ĐIỂN; CLASS NÀY CUNG CẤP CÁC PHƯƠNG THỨC CHO VIỆC TRA CỨU, THÊM ,SỬA, XÓA, LƯU, NẠP DỮ LIỆU CÁC NÚT TỪ TRONG TỪ ĐIỂN
+        public class SuperDictionary
+        {
+            //Các thuộc tính class này quản lí là một mảng kiểu danh sách nút từ, mảng có tên là WordBlock
+            public ListWordNode[] WordBlock;
+            //Phương thức khởi tạo class này là chỉ định mảng WordBlock có 26 phần tử mặc định (tương ứng với 26 chữ cái trong tiếng Anh)
+            public SuperDictionary()
+            {
+                WordBlock = new ListWordNode[26];
+                for (int i = 0; i <= 25; i++)
+                {
+                    WordBlock[i] = new ListWordNode();
+                }
+            }
+            //Phương thức cho phép xác định giá trị số nguyên từ một string truyền vào để làm chỉ mục cho WordBlock
+            //Hay là một hàm băm với đối số truyền vào là 1 string và giá trị trả về là một số nguyên trong khoảng 0 - 25
+            public int FirstCharHash(string word)
+            {
+                if (!string.IsNullOrEmpty(word))
+                {
+                    char firstChar = word.ToLower()[0];
+                    if (char.IsLetter(firstChar))
+                    {
+                        int hash = firstChar - 'a';
+                        return hash >= 0 && hash <= 25 ? hash : -1; // ensure the hash is between 0 and 25
+                    }
+                }
+                //Giá trị trả về sẽ là -1 nếu first char của string không phải là 1 chữ cái
+                return -1;
+            }
+            //Phương thức tìm kiếm một nút từ với đối số truyền vào một chuỗi string mang dữ liệu cần tìm
+            public WordNode Search_Dictionary(string userTyping)
+            {
+                //Tính toán chỉ mục cho WordBlock để xác dịnh tìm kiếm nút từ trên WordBlock nào
+                int index = FirstCharHash(userTyping);
+                if (index != -1)
+                    //Sử dụng phương thức Search() của WordBlock[] để thực hiện tìm và trả về nút từ cần tìm (nếu có)
+                    return WordBlock[index].Search(userTyping);
+                else
+                    return null;
+            }
+            //Phương thức thêm một nút từ với đối số là một nút từ do người dùng tạo ra
+            public void Add_Dictionary(WordNode user)
+            {
+                //Tính toán chỉ mục cho WordBlock để xác dịnh thêm nút từ trên WordBlock nào
+                int index = FirstCharHash(user.Word);
+                //Sử dụng phương thức AddWordNode() của WordBlock[] để thực hiện thêm nút từ mới
+                WordBlock[index].AddWordNode(user);
+            }
+            //Phương thức xóa một nút từ với dối số truyền vào là 1 string ứng với dữ liệu của nút cần xóa
+            public void Delete_Dictionary(string userTyping)
+            {
+                //Tính toán chỉ mục cho WordBlock để xác dịnh thêm nút từ trên WordBlock nào
+                int index = FirstCharHash(userTyping);
+                //Sử dụng phương thức DeleteWordNode() của WordBlock[] để thực hiện xóa nút từ tương ứng (nếu có)
+                WordBlock[index].DeleteWordNode(userTyping);
+            }
+            //Phương thức lấy dữ liệu được ghi trong file txt để làm dữ liệu cho từ điển
+            public void LoadFile(string filepath)
+            {
+                StreamReader reader = new StreamReader(filepath);
+                string lineData;
+                while ((lineData = reader.ReadLine()) != null)
+                {
+                    string[] parts = lineData.Split('|');
+                    if (parts.Length >= 4)
+                    {
+                        WordNode temp = new WordNode(parts[0].Trim(), parts[1].Trim(), parts[2].Trim(), parts[3].Trim());
+                        Add_Dictionary(temp);
+                    }
+                }
+                reader.Close();
+            }
+            //Phương thức ghi dữ liệu từ điển vào file txt
+            public void SaveFile(string filepath)
+            {
+                StreamWriter writer = new StreamWriter(filepath);
+                for (int i = 0; i <= 25; i++)
+                {
+                    WordNode temp = WordBlock[i].head;
+                    while (temp != null)
+                    {
+                        writer.WriteLine($"{temp.Word}|{temp.TypeWord}|{temp.Description}|{temp.Example}");
+                        temp = temp.next;
+                    }
+                }
+                writer.Close();
+            }
+            //Phương thức tìm kiếm danh sách nút từ có dữ liệu trùng tiền tố với chuỗi string truyền vào
+            //đồng thời thực hiện ghi dữ liệu danh sách nút từ lên một listbox chỉ định
+            public ListWordNode SearchAdvance_Dictionary(string userTyping, ListBox lstWord)
+            {
+                //Tính toán chỉ mục cho WordBlock để xác dịnh tìm danh sách nút từ trên WordBlock nào
+                int index = FirstCharHash(userTyping);
+                //Điều kiện if_else nhằm trên tránh lỗi index nằm ngoài vùng chỉ mục hợp lệ của mảng
+                if (index != -1)
+                    //Sử dụng phương thức SearchAdvance() trên WordBlock[i] để thực hiện tìm và trả về danh sách nút từ cần tìm (nếu có)
+                    return WordBlock[index].SearchAdvance(userTyping, lstWord);
+                else
+                    return null;
+
+            }
+        }
+        //-------------------------------------------------------Thiết kế hàm sự kiện--------------------------------------------------------
+        //-----------------------------------------------------------------------------------------------------------------------------------
+        //Tạo một biến từ điển toàn cục, hằng địa chỉ file txt trên nhiều form từ class SuperDictionary
+        public static class GlobalVariables
+        {
+            public static SuperDictionary THONG_PHONG = new SuperDictionary();
+            public const string DictionaryPath = @"PHONG.txt";
+        }
+        //Tạo một danh sách nút tạm để sử dụng trong chương trình
+        public ListWordNode listKQ = new ListWordNode();
+        public Form1()
+        {
+            InitializeComponent();
+            //Sử dụng phương thức LoadFile để đọc dữ liệu vào từ điển hiện tại
+            GlobalVariables.THONG_PHONG.LoadFile(GlobalVariables.DictionaryPath);
+        }
+        //MỘT SỐ HÀM ĐƯỢC XÂY DỰNG ĐỂ PHỤC VỤ RIÊNG CHO CHƯƠNG TRÌNH
+        //Hàm này dùng để kiểm tra chuỗi string I có đứng trước chuỗi string II về mặt chữ cái hay không
+        public static bool IsBefore(string word1, string word2)
+        {
+            int minLength = Math.Min(word1.Length, word2.Length);
+            for (int i = 0; i < minLength; i++)
+            {
+                if (word1[i] < word2[i])
+                {
+                    return true;  // word1 đứng trước word2
+                }
+                else if (word1[i] > word2[i])
+                {
+                    return false;  // word1 đứng sau word2
+                }
+            }
+            // Nếu các ký tự từ đầu đến độ dài ngắn nhất giống nhau,
+            // từ có độ dài ngắn hơn đứng trước.
+            return word1.Length < word2.Length;
+        }
+        //Hàm kiểm tra chuỗi I có phải chuỗi con tiền tố của chuỗi II hay không
+        public static bool TestSubString(string subStr, string Str)
+        {
+            // Kiểm tra nếu chuỗi gốc hoặc chuỗi con là null, hoặc độ dài của chuỗi con lớn hơn độ dài của chuỗi gốc
+            if (Str == null || subStr == null || subStr.Length > Str.Length)
+            {
+                return false;
+            }
+            else
+            {
+                // Kiểm tra từng ký tự của chuỗi con và chuỗi gốc
+                for (int i = 0; i < subStr.Length; i++)
+                {
+                    // Nếu tìm thấy ký tự không khớp, trả về false
+                    if (Str[i] != subStr[i])
+                    {
+                        return false;
+                    }
+                }
+                // Nếu các ký tự của chuỗi con khớp với các ký tự tương ứng trong chuỗi gốc đến hết chuỗi con, trả về true
+                return true;
+            }
+        }
+
+        //Hàm này dùng để xóa dữ liệu trên các textbox chứa dữ liệu từ tra cứu trên giao diện winform
+        public void ClearTextBoxDefinition()
+        {
+            //Làm trống các textbox chứa dữ liệu 
+            txtWord.Clear();
+            txtTypeWord.Clear();
+            txtDescription.Clear();
+            txtExample.Clear();
+        }
+        //-------------------------------------------------------------------------------------------------------------------------------------
+        //Hàm sự kiện khi txtUserSearch nhận dữ liệu
+        private void txtUserSearch_TextChanged(object sender, EventArgs e)
+        {
+            if (txtUserSearch.Text.Length != 0)
+            {
+                //Sử dụng phương thức SearchAdvance_Dictionary() của từ điển để tìm và ghi danh sách nút từ có liên quan đến dữ liệu tại txtUserSearch
+                listKQ = GlobalVariables.THONG_PHONG.SearchAdvance_Dictionary(txtUserSearch.Text, lstWord);
+                if (lstWord.Items.Count == 1)
+                {
+                    lstWord.SelectedIndex = 0;
+                    txtWord.Text = listKQ.head.Word;
+                    txtTypeWord.Text = listKQ.head.TypeWord;
+                    txtDescription.Text = listKQ.head.Description;
+                    txtExample.Text = listKQ.head.Example;
+                }
+                else
+                    ClearTextBoxDefinition();
+            }
+            else
+            {
+                lstWord.Items.Clear();
+                ClearTextBoxDefinition();
+            }
+
+        }
+        //Hàm sự kiện khi thực hiện chọn item có trên lstWord
+        private void lstWord_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstWord.SelectedItem.ToString().Length != 0)
+            {
+                //kiểm tra dữ liệu thu được từ việc chọn item có hợp lệ hay không
+                //Gán kết quả tìm kiếm vào nút find từ item được chọn
+                WordNode find = listKQ.Search(lstWord.SelectedItem.ToString());
+                //Ghi dữ liệu lên các textbox đó
+                txtWord.Text = find.Word;
+                txtTypeWord.Text = find.TypeWord;
+                txtDescription.Text = find.Description;
+                txtExample.Text = find.Example;
+            }
+            else
+            {
+                //Dữ liệu thu được từ việc chọn item không hợp lệ
+                //In thông báo và trỏ đến txtUserSearch để người dùng nhập lại
+                MessageBox.Show("Hãy thực hiện lại !");
+                txtUserSearch.Focus();
+            }
+        }
+        //Hàm sự kiện khi nhấn nút btnOpenFormAdd
+        private void btnOpenFormAdd_Click(object sender, EventArgs e)
+        {
+            if (!Application.OpenForms.OfType<FormAddWord>().Any())
+            {
+                //Kiểm tra cửa sổ form mới có/còn bật hay không
+                //Xóa dữ liệu tại listbox, textbox trên form cũ
+                txtUserSearch.Clear();
+                lstWord.Items.Clear();
+                ClearTextBoxDefinition();
+                GlobalVariables.THONG_PHONG.SaveFile(GlobalVariables.DictionaryPath);
+                //Mở form chỉ định
+                FormAddWord f = new FormAddWord();
+                f.Show();
+            }
+        }
+        //Hàm sự kiện khi nhấn btnDelete
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (lstWord.SelectedItem.ToString().Length != 0)
+            {
+                //kiểm tra dữ liệu thu được từ việc chọn item có hợp lệ hay không
+                //tạo thông báo YesNo xác nhận việc xóa nút từ
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa từ này không ?", "CẢNH BÁO!!!", MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                {
+                    //nếu có tiến hành sử dụng phương thức Delete_Dictionary() để xóa nút từ từ dữ liệu chọn ở listbox
+                    GlobalVariables.THONG_PHONG.Delete_Dictionary(lstWord.SelectedItem.ToString());
+                    if (txtUserSearch.Text.Length != 0)
+                    {
+                        //Sử dụng phương thức SearchAdvance_Dictionary() của từ điển để tìm và ghi danh sách nút từ có liên quan đến dữ liệu tại txtUserSearch
+                        listKQ = GlobalVariables.THONG_PHONG.SearchAdvance_Dictionary(txtUserSearch.Text, lstWord);
+                    }
+                    ClearTextBoxDefinition();
+                    //Sử dụng phương thức SaveFile() của từ điển để lưu lại dữ liệu từ điển mới
+                    GlobalVariables.THONG_PHONG.SaveFile(GlobalVariables.DictionaryPath);
+                }
+                else if (result == DialogResult.No)
+                {
+                    // xử lý nếu người dùng chọn No
+                }
+            }
+            else
+            {
+                //Dữ liệu thu được từ việc chọn item không hợp lệ
+                //In thông báo và trỏ đến txtUserSearch để người dùng nhập lại
+                MessageBox.Show("Hãy thực hiện lại !");
+                txtUserSearch.Focus();
+            }
+        }
+    }
+}
